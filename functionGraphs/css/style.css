@@ -1,0 +1,11 @@
+body {
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+    background-color: aliceblue;
+}
+
+#canvas {
+    margin: auto;
+    background: rgba(95, 95, 95, 0.5)
+}
