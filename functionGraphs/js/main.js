@@ -10,6 +10,26 @@ window.onload = function () {
         HEIGHT: 20
     }
 
+    const funcs = [
+        {
+            f:(x) => Math.sin(x),
+            color:'red',
+            width:2
+        },
+        {
+            g:(x) => Math.cos(x),
+            color:'blue',
+            width:2
+        },
+        {
+            j:(x) => x*x,
+            color:'green',
+            width:2 
+        }
+    ];
+
+    const ui = new UI({addFunction,delFunction});
+    
     const graph = new Graph({
         id: 'canvas',
         width: 900,
@@ -20,6 +40,19 @@ window.onload = function () {
 
     const ZOOMSTEP = 0.2;
     let canMove = false;
+
+    function addFunction (f,num) {
+        funcs[num] = {
+            f,
+            color:'#f23',
+            width:3
+        };
+        render();
+    }
+    function delFunction(num) {
+        funcs[num] = null;
+        render();
+    }
 
     function mouseup() {
         canMove = false;
@@ -137,19 +170,21 @@ window.onload = function () {
     function render() {
         graph.clear();
         printOXY();
+        funcs.forEach(func =>
+            func && printFunction(func.f,func.color,func.width)
+        );
+    
+        // printFunction(f, 1000, 'green', 4);
+        // graph.text(-0.6, -1.2, 'y=sin(x)', 'green', '20px Georgia');
 
-        printFunction(f, 1000, 'green', 4);
-        graph.text(-0.6, -1.2, 'y=sin(x)', 'green', '20px Georgia');
+        // printFunction(g, 1000, 'purple', 4);
+        // graph.text(-0.6, 1.2, 'y=cos(x)', 'purple', '20px Georgia');
 
-        printFunction(g, 1000, 'purple', 4);
-        graph.text(-0.6, 1.2, 'y=cos(x)', 'purple', '20px Georgia');
+        // printFunction(j, 1000, 'blue', 4);
+        // graph.text(2.5, 5, 'y=x²', 'blue', '20px Georgia');
 
-        printFunction(j, 1000, 'blue', 4);
-        graph.text(2.5, 5, 'y=x²', 'blue', '20px Georgia');
-
-        getZeros(f);
-        printZeros(f);
+        // getZeros(f);
+        // printZeros(f);
     }
-
     render();
 }
