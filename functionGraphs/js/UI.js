@@ -3,7 +3,7 @@ function UI ({addFunction,delFunction}) {
     document.getElementById('addFunction').addEventListener('click', addClickHandler);
     function addClickHandler() {
         const input = document.createElement('input');
-        input.setAttribute('placeholder','функция № ' + num);
+        input.setAttribute('placeholder','функция № ' + (num+1));
         input.dataset.num = num;
         input.addEventListener('keyup', keyupHandler);
         const button = document.createElement('button');
