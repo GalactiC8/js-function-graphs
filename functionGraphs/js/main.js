@@ -21,11 +21,11 @@ window.onload = function () {
         callBacks: { wheel, mouseup, mouseleave, mousedown, mousemove }
     })
 
-    function addFunction(f, num) {
+    function addFunction(f, num, color = 'green', width = 2) {
         funcs[num] = {
             f,
-            color: 'red',
-            width: 2
+            color: color,
+            width: width
         };
         render();
     }
@@ -72,6 +72,16 @@ window.onload = function () {
         render();
     }
 
+    // const getIntegral = (f,a,b) => {
+    //     const dx = (b-a) / 1000;
+    //     let x = a;
+    //     let s = 0;
+    //     while (x <= b) {
+    //         s += (Math.abs(f(x)) + Math.abs(f(x + dx) / 2 * dx));
+    //     } x += dx;
+    //     return s;
+    // }
+
     // function getZero(f, a, b, eps = 0.0001) {
     //     if (f(a) * f(b) > 0) 
     //         return null;
@@ -94,7 +104,6 @@ window.onload = function () {
     //     while (b <= WIN.WIDTH + WIN.LEFT) {
     //         b += dx;
     //         if (f(a) * f(b) < 0) {
-    //             // переделать условие для асимптод
     //             if ((Math.abs(f(a)) + Math.abs(f(b))) < eps) {
     //                 segments.push({a, b});
     //             }
@@ -142,17 +151,28 @@ window.onload = function () {
         }
     }
 
-    // const printZero = (x = 0) => graph.point(x, 0, '#000', 3);
-    // function printZeros(f) {
-    //     printZero(getZero(f));
+    // function printZeros(f, n = 50, eps = 1, color = '#00f') {
+    //     const zeros = getZeros(f, n, eps);
+    //     zeros.forEach((zero) => {
+    //         if (zero !== null) {
+    //             graph.point(zero, f(zero), color, size);
+    //         }
+    //     });
     // }
 
-    // касательная к точке
-    function asymptote () {
-        let lim = (f(x + dx) - f(x)) / dx; 
-        let y = k * x + b;
-        let b = -(k * x) / y;
-    }
+    // function printIntegral(f,a,b) {
+    //     if (a !== b) {
+    //         const dx = (b - a) / 100;
+    //         let x = a;
+    //         const points = [{x,y:0}];
+    //         while (x <= b) {
+    //             points.push({x,y:f(x)});
+    //             x += dx;
+    //         }
+    //         points.push({x:b,y:0});
+    //         graph.polygon(points);
+    //     }
+    // }
 
     function render() {
         graph.clear();
@@ -160,4 +180,5 @@ window.onload = function () {
         funcs.forEach(func => func && printFunction(func.f, func.color, func.width));
     }
     render();
+
 }

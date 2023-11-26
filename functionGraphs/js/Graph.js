@@ -47,13 +47,25 @@ function Graph({ id, WIN, width = 300, height = 300, callBacks }) {
         context.closePath();
     }
 
-    // this.text = (x, y, text, color = `blue`, font = `20px Georgia`) => {
-    //     context.beginPath();
-    //     context.font = font;
-    //     context.fillStyle = color;
-    //     context.fillAlign = 'center';
-    //     context.fillText(text || "", xs(x), ys(y));
-    //     context.stroke();
-    //     context.closePath();
-    // }
+    this.text = (x, y, text, color = `blue`, font = `20px Georgia`) => {
+        context.beginPath();
+        context.font = font;
+        context.fillStyle = color;
+        context.fillAlign = 'center';
+        context.fillText(text || "", xs(x), ys(y));
+        context.stroke();
+        context.closePath();
+    }
+
+    this.polygon = function(points, color = 'f805') {
+        context.fillStyle = color;
+        context.beginPath();
+        context.moveTo(xs(points[0].x), ys(points[0].y));
+        for (let i = 1; i < points.length;i++) {
+            context.lineTo(xs(points[i].x), ys(points[i].y))
+            context.lineTo(xs(points[0].x), ys(points[0].y))
+        }
+        context.closePath();
+        context.fill();
+    }
 }
