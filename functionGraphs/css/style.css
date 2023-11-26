@@ -6,13 +6,11 @@ body {
 }
 
 #addFunction, #delFunction {
-    display: inline-block;
-    font-weight: 200;
+    width: 100px;
+    height: 50px;
+    display: block;
+    font-weight: 10px;
     white-space: nowrap;
-    vertical-align: left;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
     border: 1px solid;
     padding: .375rem .75rem;

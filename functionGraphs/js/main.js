@@ -6,45 +6,30 @@ window.onload = function () {
         HEIGHT: 20
     }
 
-    const ui = new UI({addFunction,delFunction});
-    
+    const funcs = [];
+
+    const ZOOMSTEP = 0.2;
+    let canMove = false;
+
+    const ui = new UI({ addFunction, delFunction });
+
     const graph = new Graph({
         id: 'canvas',
         width: 900,
         height: 900,
         WIN,
         callBacks: { wheel, mouseup, mouseleave, mousedown, mousemove }
-    });
+    })
 
-    const ZOOMSTEP = 0.2;
-    let canMove = false;
-
-    const funcs = [
-        {
-            f:(x) => Math.sin(x),
-            color:'red',
-            width:2
-        },
-        {
-            g:(x) => Math.cos(x),
-            color:'blue',
-            width:2
-        },
-        {
-            j:(x) => x*x,
-            color:'green',
-            width:2 
-        }
-    ];
-
-    function addFunction (f,num) {
+    function addFunction(f, num) {
         funcs[num] = {
             f,
-            color:'#f23',
-            width:3
+            color: 'red',
+            width: 2
         };
         render();
     }
+    
     function delFunction(num) {
         funcs[num] = null;
         render();
@@ -53,12 +38,15 @@ window.onload = function () {
     function mouseup() {
         canMove = false;
     }
+
     function mouseleave() {
         canMove = false;
     }
+
     function mousedown() {
         canMove = true;
     }
+
     function mousemove(event) {
         if (canMove) {
             WIN.LEFT -= graph.sx(event.movementX);
@@ -141,12 +129,11 @@ window.onload = function () {
                 WIN.LEFT + WIN.WIDTH, i, '#FFFFFF', 1
             );
         }
-        // 
         graph.line(WIN.LEFT, 0, WIN.LEFT + WIN.WIDTH, 0, 'black');
         graph.line(0, WIN.BOTTOM, 0, WIN.BOTTOM + WIN.HEIGHT, 'black');
     }
 
-    const printFunction = (f, n, color = `red`, width = 2) => {
+    const printFunction = (f, color, width, n = 200) => {
         let x = WIN.LEFT;
         let dx = WIN.WIDTH / n;
         while (x <= WIN.WIDTH + WIN.LEFT) {
@@ -155,19 +142,22 @@ window.onload = function () {
         }
     }
 
-    const printZero = (x = 0) => graph.point(x, 0, '#000', 3);
-
-    // сделать
+    // const printZero = (x = 0) => graph.point(x, 0, '#000', 3);
     // function printZeros(f) {
     //     printZero(getZero(f));
     // }
 
+    // касательная к точке
+    function asymptote () {
+        let lim = (f(x + dx) - f(x)) / dx; 
+        let y = k * x + b;
+        let b = -(k * x) / y;
+    }
+
     function render() {
         graph.clear();
         printOXY();
-        funcs.forEach(func =>
-            func && printFunction(func.f,func.n,func.color,func.width)
-        );
+        funcs.forEach(func => func && printFunction(func.f, func.color, func.width));
     }
     render();
 }
