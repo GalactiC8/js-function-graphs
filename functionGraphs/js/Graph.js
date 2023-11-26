@@ -47,13 +47,13 @@ function Graph({ id, WIN, width = 300, height = 300, callBacks }) {
         context.closePath();
     }
 
-    this.text = (x, y, text, color = `blue`, font = `20px Georgia`) => {
-        context.beginPath();
-        context.font = font;
-        context.fillStyle = color;
-        context.fillAlign = 'center';
-        context.fillText(text || "", xs(x), ys(y));
-        context.stroke();
-        context.closePath();
-    }
+    // this.text = (x, y, text, color = `blue`, font = `20px Georgia`) => {
+    //     context.beginPath();
+    //     context.font = font;
+    //     context.fillStyle = color;
+    //     context.fillAlign = 'center';
+    //     context.fillText(text || "", xs(x), ys(y));
+    //     context.stroke();
+    //     context.closePath();
+    // }
 }
